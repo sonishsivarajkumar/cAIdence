@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  caidence-app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8501:8501"
+    environment:
+      - CTAKES_PATH=/opt/ctakes
+      - PYTHONPATH=/app
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+    depends_on:
+      - postgres
+      - ollama
+    networks:
+      - caidence-network
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: caidence
+      POSTGRES_USER: caidence
+      POSTGRES_PASSWORD: caidence_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - caidence-network
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    networks:
+      - caidence-network
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - caidence-network
+
+volumes:
+  postgres_data:
+  ollama_data:
+  redis_data:
+
+networks:
+  caidence-network:
+    driver: bridge
