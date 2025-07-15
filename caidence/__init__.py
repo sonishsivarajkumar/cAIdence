@@ -6,7 +6,7 @@ researchers, hospital administrators, data analysts, and students to unlock
 insights from clinical text using natural language.
 """
 
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 __author__ = "Sonish Sivarajkumar"
 __email__ = "sonish@example.com"
 __license__ = "Apache 2.0"
