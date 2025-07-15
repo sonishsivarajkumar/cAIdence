@@ -2,7 +2,8 @@
 
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue.svg)
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue.svg)
-![Status](https://img.shields.io/badge/status-alpha-orange.svg)
+![Version](https://img.shields.io/badge/version-0.2.0-green.svg)
+![Status](https://img.shields.io/badge/status-beta-orange.svg)
 
 ## Tagline
 **Democratizing Clinical NLP through Agentic AI**
